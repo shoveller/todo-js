@@ -6,21 +6,24 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      input[type="checkbox"]:checked + label span:first-of-type {
+      input[name="hidden-check"]:checked > label[name="check"] {
         background-color: #10b981;
         border-color: #10b981;
         color: #fff;
       }
 
-      input[type="checkbox"]:checked + label span:nth-of-type(2) {
+      /* peer 수정자를 사용하면 css 스타일을 대체할 수 있다. */
+      input[name="hidden-check"]:checked ~ span[name="viewer"] {
         text-decoration: line-through;
         color: #9ca3af;
       }
 
+      /* group 수정자를 사용하면 css 스타일을 대체할 수 있다. */
       div[name="task"]:hover button[name="edit"] {
         display: block;
       }
 
+      /* group 수정자를 사용하면 css 스타일을 대체할 수 있다. */
       div[name="task"]:hover button[name="delete"] {
         display: block;
       }
@@ -55,14 +58,16 @@
           <!-- task[s] -->
           <!-- <div class="group"> -->
           <div name="task">
-            <!-- hidden check[s] -->
-            <input class="hidden" type="checkbox" id="task" checked />
-            <!-- hidden check[e] -->
             <!-- task label[s] -->
             <label
+              name="check"
               class="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
-              for="task"
             >
+              <!-- hidden check[s] -->
+              <!-- <input class="hidden peer" type="checkbox" /> -->
+              <!-- <input class="hidden peer/checkbox" type="checkbox" /> -->
+              <input name="hidden-check" class="hidden" type="checkbox" />
+              <!-- hidden check[e] -->
               <span
                 class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
               >
@@ -80,7 +85,15 @@
                 </svg>
               </span>
               <!-- content[s] -->
-              <span class="select-none mx-4 text-sm w-full"
+              <!-- <span
+                class="select-none mx-4 text-sm w-full peer-checked/checkbox:text-[#9ca3af] peer-checked/checkbox:line-through"
+                >Trim the verge.</span
+              > -->
+              <!-- <span
+                class="select-none mx-4 text-sm w-full peer-checked/checkbox:text-[#9ca3af] peer-checked/checkbox:line-through"
+                >Trim the verge.</span
+              > -->
+              <span class="select-none mx-4 text-sm w-full" name="viewer"
                 >Trim the verge.</span
               >
               <!-- content[e] -->
