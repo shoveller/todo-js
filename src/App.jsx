@@ -1,10 +1,11 @@
 import "./App.css";
 
 function App() {
+  const onSubmit = (e) => {};
+
   return (
     <div className="flex items-center justify-center w-screen h-screen font-medium">
       <div className="flex flex-grow items-center justify-center bg-gray-900 h-full">
-        {/* Component Start */}
         <div className="max-w-full p-8 bg-gray-800 rounded-lg shadow-lg w-96 text-gray-200">
           <div className="flex items-center mb-6">
             <svg
@@ -23,6 +24,7 @@ function App() {
             </svg>
             <h4 className="font-semibold ml-3 text-lg">Todo List</h4>
           </div>
+          {/* todo[s] */}
           <div>
             <input className="hidden" type="checkbox" id="task" />
             <label
@@ -46,29 +48,38 @@ function App() {
               <span className="select-none ml-4 text-sm">Trim the verge.</span>
             </label>
           </div>
-          <button className="flex items-center w-full h-8 px-2 mt-2 text-sm font-medium rounded">
-            <svg
-              className="w-5 h-5 text-gray-400 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          {/* todo[e] */}
+          {/* form[s] */}
+          <form onSubmit={onSubmit}>
+            <div className="flex items-center w-full mt-2">
+              <button
+                type="submit"
+                className="h-8 px-2 text-sm font-medium rounded"
+              >
+                <svg
+                  className="w-5 h-5 text-gray-400 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+              </button>
+              <input
+                className="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium"
+                type="text"
+                placeholder="add a new task"
               />
-            </svg>
-            <input
-              className="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium"
-              type="text"
-              placeholder="add a new task"
-            />
-          </button>
+            </div>
+          </form>
+          {/* form[e] */}
         </div>
-        {/* Component End  */}
       </div>
     </div>
   );
