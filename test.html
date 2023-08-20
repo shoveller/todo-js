@@ -6,7 +6,7 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      input[name="hidden-check"]:checked > label[name="check"] {
+      label:has(input[name="hidden-check"]:checked) {
         background-color: #10b981;
         border-color: #10b981;
         color: #fff;
@@ -60,7 +60,6 @@
           <div name="task">
             <!-- task label[s] -->
             <label
-              name="check"
               class="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
             >
               <!-- hidden check[s] -->
@@ -69,6 +68,7 @@
               <input name="hidden-check" class="hidden" type="checkbox" />
               <!-- hidden check[e] -->
               <span
+                name="check"
                 class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
               >
                 <svg
