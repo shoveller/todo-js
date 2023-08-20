@@ -16,14 +16,22 @@
         text-decoration: line-through;
         color: #9ca3af;
       }
+
+      div[name="task"]:hover button[name="edit"] {
+        display: block;
+      }
+
+      div[name="task"]:hover button[name="delete"] {
+        display: block;
+      }
     </style>
   </head>
   <body>
+    <!-- app[s] -->
     <div class="flex items-center justify-center w-screen h-screen font-medium">
       <div
         class="flex flex-grow items-center justify-center bg-gray-900 h-full"
       >
-        <!-- Component Start -->
         <div
           class="max-w-full p-8 bg-gray-800 rounded-lg shadow-lg w-96 text-gray-200"
         >
@@ -44,8 +52,13 @@
             </svg>
             <h4 class="font-semibold ml-3 text-lg">Todo List</h4>
           </div>
-          <div>
-            <input class="hidden" type="checkbox" id="task" />
+          <!-- task[s] -->
+          <!-- <div class="group"> -->
+          <div name="task">
+            <!-- hidden check[s] -->
+            <input class="hidden" type="checkbox" id="task" checked />
+            <!-- hidden check[e] -->
+            <!-- task label[s] -->
             <label
               class="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
               for="task"
@@ -66,35 +79,79 @@
                   />
                 </svg>
               </span>
-              <span class="select-none ml-4 text-sm">Trim the verge.</span>
+              <!-- content[s] -->
+              <span class="select-none mx-4 text-sm w-full"
+                >Trim the verge.</span
+              >
+              <!-- content[e] -->
+              <!-- edit[s] -->
+              <!-- <button name="edit" class="group-hover:block"> -->
+              <button name="edit" class="hidden">
+                <svg
+                  class="w-5 h-5 text-gray-400 fill-current mx-1"
+                  viewBox="0 0 64 64"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="#000000"
+                >
+                  <polygon points="24 52 56 20 44 8 12 40 8 56 24 52" />
+                  <line x1="12" y1="40" x2="24" y2="52" />
+                  <line x1="36" y1="16" x2="48" y2="28" />
+                </svg>
+              </button>
+              <!-- edit[e] -->
+              <!-- delete[s] -->
+              <!-- <button name="delete" class="group-hover:block"> -->
+              <button name="delete" class="hidden">
+                <svg
+                  class="w-5 h-5 text-gray-400 fill-current mx-1"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 27.965 27.965"
+                  xml:space="preserve"
+                >
+                  <path
+                    d="M13.98,0C6.259,0,0,6.261,0,13.983c0,7.721,6.259,13.982,13.98,13.982c7.725,0,13.985-6.262,13.985-13.982
+              C27.965,6.261,21.705,0,13.98,0z M19.992,17.769l-2.227,2.224c0,0-3.523-3.78-3.786-3.78c-0.259,0-3.783,3.78-3.783,3.78
+              l-2.228-2.224c0,0,3.784-3.472,3.784-3.781c0-0.314-3.784-3.787-3.784-3.787l2.228-2.229c0,0,3.553,3.782,3.783,3.782
+              c0.232,0,3.786-3.782,3.786-3.782l2.227,2.229c0,0-3.785,3.523-3.785,3.787C16.207,14.239,19.992,17.769,19.992,17.769z"
+                  />
+                </svg>
+              </button>
+              <!-- delete[e] -->
             </label>
+            <!-- task label[e] -->
           </div>
-          <button
-            class="flex items-center w-full h-8 px-2 mt-2 text-sm font-medium rounded"
-          >
-            <svg
-              class="w-5 h-5 text-gray-400 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
+          <!-- task[e] -->
+          <!-- form[s] -->
+          <div class="flex items-center w-full mt-2">
+            <button class="h-8 px-2 text-sm font-medium rounded">
+              <svg
+                class="w-5 h-5 text-gray-400 fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </button>
             <input
               class="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium"
               type="text"
               placeholder="add a new task"
             />
-          </button>
+          </div>
+          <!-- form[e] -->
         </div>
-        <!-- Component End  -->
       </div>
     </div>
+    <!-- app[e] -->
   </body>
 </html>
