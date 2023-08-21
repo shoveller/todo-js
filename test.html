@@ -5,30 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* tailwindcss의 group-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
-      div[name="task"]:hover button[name="edit"] {
-        display: block;
-      }
-
-      /* tailwindcss의 group-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
-      div[name="task"]:hover button[name="delete"] {
-        display: block;
-      }
-
-      /* tailwindcss의 peer-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
-      span[name="check"]:has(+ input[name="hidden-check"]:checked) {
-        background-color: #10b981;
-        border-color: #10b981;
-        color: white;
-      }
-
-      /* tailwindcss의 peer-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
-      input[name="hidden-check"]:checked ~ span[name="viewer"] {
-        text-decoration: line-through;
-        color: #9ca3af;
-      }
-    </style>
   </head>
   <body>
     <!-- app[s] -->
@@ -57,15 +33,18 @@
             <h4 class="font-semibold ml-3 text-lg">Todo List</h4>
           </div>
           <!-- task[s] -->
-          <!-- <div class="group"> -->
-          <div name="task">
+          <div class="group">
             <!-- task label[s] -->
             <label
               class="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
             >
+              <!-- hidden check[s] -->
+              <input class="hidden peer" type="checkbox" />
+              <!-- hidden check[e] -->
+              <!-- check[s]-->
               <span
                 name="check"
-                class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
+                class="peer-checked:bg-green-500 peer-checked:border-green-500 peer-checked:text-white flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
               >
                 <svg
                   class="w-4 h-4 fill-current"
@@ -80,27 +59,12 @@
                   />
                 </svg>
               </span>
-              <!-- hidden check[s] -->
-              <!-- <input class="hidden peer" type="checkbox" /> -->
-              <!-- <input class="hidden peer/checkbox" type="checkbox" /> -->
-              <input name="hidden-check" class="hidden" type="checkbox" />
-              <!-- hidden check[e] -->
+              <!-- check[e]-->
               <!-- content[s] -->
-              <!-- <span
-                class="select-none mx-4 text-sm w-full peer-checked/checkbox:text-[#9ca3af] peer-checked/checkbox:line-through"
-                >Trim the verge.</span
-              > -->
-              <!-- <span
-                class="select-none mx-4 text-sm w-full peer-checked/checkbox:text-[#9ca3af] peer-checked/checkbox:line-through"
-                >Trim the verge.</span
-              > -->
-              <span class="select-none mx-4 text-sm w-full" name="viewer"
-                >Trim the verge.</span
-              >
+              <span class="peer-checked:text-gray-500 peer-checked:line-through select-none mx-4 text-sm w-full">Trim the verge.</span>
               <!-- content[e] -->
               <!-- edit[s] -->
-              <!-- <button name="edit" class="group-hover:block"> -->
-              <button name="edit" class="hidden">
+              <button class="hidden group-hover:block">
                 <svg
                   class="w-5 h-5 text-gray-400 fill-current mx-1"
                   viewBox="0 0 64 64"
@@ -115,8 +79,7 @@
               </button>
               <!-- edit[e] -->
               <!-- delete[s] -->
-              <!-- <button name="delete" class="group-hover:block"> -->
-              <button name="delete" class="hidden">
+              <button class="hidden group-hover:block">
                 <svg
                   class="w-5 h-5 text-gray-400 fill-current mx-1"
                   version="1.1"
