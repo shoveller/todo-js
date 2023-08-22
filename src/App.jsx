@@ -1,7 +1,13 @@
 import "./App.css";
 
 function App() {
-  const onSubmit = (e) => {};
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const checked = formData.get("hidden-check");
+    const task = formData.get("task");
+    debugger;
+  };
 
   return (
     <div className="flex items-center justify-center w-screen h-screen font-medium">
@@ -24,14 +30,22 @@ function App() {
             </svg>
             <h4 className="font-semibold ml-3 text-lg">Todo List</h4>
           </div>
-          {/* todo[s] */}
-          <div>
-            <input className="hidden" type="checkbox" id="task" />
-            <label
-              className="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
-              htmlFor="task"
-            >
-              <span className="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
+          {/* task[s] */}
+          <div className="group">
+            {/* task label[s] */}
+            <label className="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900">
+              {/* hidden check[s] */}
+              <input
+                className="hidden peer"
+                type="checkbox"
+                name="hidden-check"
+              />
+              {/* hidden check[e] */}
+              {/* check[s]*/}
+              <span
+                name="check"
+                className="peer-checked:bg-green-500 peer-checked:border-green-500 peer-checked:text-white flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
+              >
                 <svg
                   className="w-4 h-4 fill-current"
                   xmlns="http://www.w3.org/2000/svg"
@@ -45,10 +59,50 @@ function App() {
                   />
                 </svg>
               </span>
-              <span className="select-none ml-4 text-sm">Trim the verge.</span>
+              {/* check[e]*/}
+              {/* content[s] */}
+              <span className="peer-checked:text-gray-500 peer-checked:line-through select-none mx-4 text-sm w-full">
+                Trim the verge.
+              </span>
+              {/* content[e] */}
+              {/* edit[s] */}
+              <button className="hidden group-hover:block">
+                <svg
+                  className="w-5 h-5 text-gray-400 fill-current mx-1"
+                  viewBox="0 0 64 64"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="#000000"
+                >
+                  <polygon points="24 52 56 20 44 8 12 40 8 56 24 52" />
+                  <line x1={12} y1={40} x2={24} y2={52} />
+                  <line x1={36} y1={16} x2={48} y2={28} />
+                </svg>
+              </button>
+              {/* edit[e] */}
+              {/* delete[s] */}
+              <button className="hidden group-hover:block">
+                <svg
+                  className="w-5 h-5 text-gray-400 fill-current mx-1"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 27.965 27.965"
+                  xmlSpace="preserve"
+                >
+                  <path
+                    d="M13.98,0C6.259,0,0,6.261,0,13.983c0,7.721,6.259,13.982,13.98,13.982c7.725,0,13.985-6.262,13.985-13.982
+        C27.965,6.261,21.705,0,13.98,0z M19.992,17.769l-2.227,2.224c0,0-3.523-3.78-3.786-3.78c-0.259,0-3.783,3.78-3.783,3.78
+        l-2.228-2.224c0,0,3.784-3.472,3.784-3.781c0-0.314-3.784-3.787-3.784-3.787l2.228-2.229c0,0,3.553,3.782,3.783,3.782
+        c0.232,0,3.786-3.782,3.786-3.782l2.227,2.229c0,0-3.785,3.523-3.785,3.787C16.207,14.239,19.992,17.769,19.992,17.769z"
+                  />
+                </svg>
+              </button>
+              {/* delete[e] */}
             </label>
+            {/* task label[e] */}
           </div>
-          {/* todo[e] */}
+          {/* task[e] */}
           {/* form[s] */}
           <form onSubmit={onSubmit}>
             <div className="flex items-center w-full mt-2">
@@ -74,6 +128,7 @@ function App() {
               <input
                 className="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium"
                 type="text"
+                name="task"
                 placeholder="add a new task"
               />
             </div>
