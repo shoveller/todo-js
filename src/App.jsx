@@ -2,21 +2,18 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [list, setList] = useState([])
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const task = formData.get("task");
+    const todo = formData.get("todo");
     
-    
-  
+    setList([...list, {
+      id: '',
+      todo,
+      completed: false
+    }])
   };
-
-  const onChange = (e) => {
-    console.log(e.target)
-  }
-
-  const [list, setList] = useState([])
-  
 
   return (
     <div className="flex items-center justify-center w-screen h-screen font-medium">
@@ -55,7 +52,7 @@ function App() {
               )}) 
             }
             <form onSubmit={onSubmit}>
-              {/* task[e] */}
+              {/* todo[e] */}
               <div className="flex items-center w-full mt-2">
                 {/* submit button[s] */}
                 <button id="submit" type="submit" className="h-8 px-2 text-sm font-medium rounded">
@@ -64,11 +61,11 @@ function App() {
                   </svg>
                 </button>
                 {/* submit button[e] */}
-                {/* task input[s] */}
-                <input className="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium peer/task" type="text" id="task" name="task" required placeholder="add a new task" />
-                {/* task input[e] */}
+                {/* todo input[s] */}
+                <input className="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium peer/todo" type="text" id="todo" name="todo" required placeholder="add a new todo" />
+                {/* todo input[e] */}
                 {/* reset button[s] */}
-                <button type="reset" id="reset" className="peer-invalid/task:hidden h-8 px-2 text-sm font-medium rounded">
+                <button type="reset" id="reset" className="peer-invalid/todo:hidden h-8 px-2 text-sm font-medium rounded">
                   <svg className="w-5 h-5 text-gray-400 fill-current" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
                     <path xmlns="http://www.w3.org/2000/svg" d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0" fillRule="evenodd" />
                   </svg>
