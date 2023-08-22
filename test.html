@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* tailwindcss의 group-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
+      div[name="task"]:hover button[name="delete"] {
+        display: block;
+      }
+
+      /* tailwindcss의 peer-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
+      span[name="check"]:has(+ input[name="hidden-check"]:checked) {
+        background-color: #84cc16;
+        border-color: #84cc16;
+        color: white;
+      }
+
+      /* tailwindcss의 peer-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
+      input[name="hidden-check"]:checked ~ span[name="viewer"] {
+        text-decoration: line-through;
+        color: #78716c;
+      }
+
+      /* tailwindcss의 peer-* 수정자를 사용하면 css 스타일을 대체할 수 있다. */
+      input[name="task"]:invalid + button {
+        display: none;
+      }
+      input[name="task"]:valid + button {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <!-- app[s] -->
@@ -33,18 +60,15 @@
             <h4 class="font-semibold ml-3 text-lg">Todo List</h4>
           </div>
           <!-- task[s] -->
-          <div class="group">
+          <div name="task">
             <!-- task label[s] -->
             <label
               class="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
             >
-              <!-- hidden check[s] -->
-              <input class="hidden peer" type="checkbox" />
-              <!-- hidden check[e] -->
-              <!-- check[s]-->
+							<!-- check[s] -->
               <span
                 name="check"
-                class="peer-checked:bg-green-500 peer-checked:border-green-500 peer-checked:text-white flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
+                class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
               >
                 <svg
                   class="w-4 h-4 fill-current"
@@ -59,27 +83,17 @@
                   />
                 </svg>
               </span>
-              <!-- check[e]-->
+							<!-- check[e] -->
+              <!-- hidden check[s] -->
+              <input name="hidden-check" class="hidden" type="checkbox" />
+              <!-- hidden check[e] -->
               <!-- content[s] -->
-              <span class="peer-checked:text-gray-500 peer-checked:line-through select-none mx-4 text-sm w-full">Trim the verge.</span>
+              <span class="select-none mx-4 text-sm w-full" name="viewer">
+								Trim the verge.
+							</span>
               <!-- content[e] -->
-              <!-- edit[s] -->
-              <button class="hidden group-hover:block">
-                <svg
-                  class="w-5 h-5 text-gray-400 fill-current mx-1"
-                  viewBox="0 0 64 64"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  stroke="#000000"
-                >
-                  <polygon points="24 52 56 20 44 8 12 40 8 56 24 52" />
-                  <line x1="12" y1="40" x2="24" y2="52" />
-                  <line x1="36" y1="16" x2="48" y2="28" />
-                </svg>
-              </button>
-              <!-- edit[e] -->
               <!-- delete[s] -->
-              <button class="hidden group-hover:block">
+              <button name="delete" class="hidden">
                 <svg
                   class="w-5 h-5 text-gray-400 fill-current mx-1"
                   version="1.1"
@@ -103,6 +117,7 @@
           <!-- task[e] -->
           <!-- form[s] -->
           <div class="flex items-center w-full mt-2">
+						<!-- submit button[s] -->
             <button class="h-8 px-2 text-sm font-medium rounded">
               <svg
                 class="w-5 h-5 text-gray-400 fill-current"
@@ -119,11 +134,26 @@
                 />
               </svg>
             </button>
+						<!-- submit button[e] -->
+            <!-- task input[s] -->
             <input
               class="flex-grow h-8 ml-4 bg-transparent focus:outline-none font-medium"
               type="text"
+							name="task"
+              required
               placeholder="add a new task"
             />
+						<!-- task input[e] -->
+            <!-- reset button[s] -->
+            <button class="h-8 px-2 text-sm font-medium rounded">
+              <svg class="w-5 h-5 text-gray-400 fill-current" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                <path xmlns="http://www.w3.org/2000/svg" 
+                      d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0" 
+                      fill-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+            <!-- reset button[e] -->
           </div>
           <!-- form[e] -->
         </div>
