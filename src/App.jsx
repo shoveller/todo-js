@@ -1,47 +1,46 @@
 import "./App.css";
-import { atom, useRecoilCallback } from "recoil";
+import { atom, useAtom } from "jotai";
 
-const listAtom = atom({
-  key: 'listAtom',
-  default: []
-})
+const listAtom = atom([])
 
 function App() {
-  const onSubmit = useRecoilCallback(({ snapshot, set }) => async(e) => {
+  const [list, setList] = useAtom(listAtom)
+  const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const todo = formData.get("todo");
-    const list = await snapshot.getPromise(listAtom)
     const newList = [...list, {
       id: new Date().getTime(),
       todo,
       completed: false
     }]
-
-    set(listAtom, newList)
-  }, [])
-
-  const onChange = useRecoilCallback(({ snapshot, set }) => async(id, completed) => {
-    const newList = await snapshot.getPromise(listAtom).map(item => {
+  
+    setList(newList)
+  
+    e.currentTarget.reset();
+  };
+  
+  const onChange = (id, completed) => {
+    const newList = list.map(item => {
       if (item.id === id) {
         return {
           ...item,
           completed: !completed
         }
       } 
-
+  
       return item
     })
-    set(listAtom, newList)
-  },[])
-
-  const onClick = useRecoilCallback(({ snapshot, set }) => async(id) => {
-    const newList = await snapshot.getPromise(listAtom).filter(item => {
+    setList(newList)
+  }
+  
+  const onClick = (id) => {
+    const newList = list.filter(item => {
       return item.id !== id;
     })
-
-    set(listAtom, newList);
-  }, [])
+  
+    setList(newList);
+  }
 
   return (
     <div className="flex items-center justify-center w-screen h-screen font-medium">
