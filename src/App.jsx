@@ -1,26 +1,28 @@
-import { useState } from "react";
 import "./App.css";
+import { atom, useRecoilCallback } from "recoil";
+
+const listAtom = atom({
+  key: 'listAtom',
+  default: []
+})
 
 function App() {
-  const [list, setList] = useState([])
-  console.log('list', list);
-  const onSubmit = (e) => {
+  const onSubmit = useRecoilCallback(({ snapshot, set }) => async(e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const todo = formData.get("todo");
+    const list = await snapshot.getPromise(listAtom)
     const newList = [...list, {
       id: new Date().getTime(),
       todo,
       completed: false
     }]
 
-    setList(newList)
+    set(listAtom, newList)
+  }, [])
 
-    e.currentTarget.reset();
-  };
-
-  const onChange = (id, completed) => {
-    const newList = list.map(item => {
+  const onChange = useRecoilCallback(({ snapshot, set }) => async(id, completed) => {
+    const newList = await snapshot.getPromise(listAtom).map(item => {
       if (item.id === id) {
         return {
           ...item,
@@ -30,16 +32,16 @@ function App() {
 
       return item
     })
-    setList(newList)
-  }
+    set(listAtom, newList)
+  },[])
 
-  const onClick = (id) => {
-    const newList = list.filter(item => {
+  const onClick = useRecoilCallback(({ snapshot, set }) => async(id) => {
+    const newList = await snapshot.getPromise(listAtom).filter(item => {
       return item.id !== id;
     })
 
-    setList(newList);
-  }
+    set(listAtom, newList);
+  }, [])
 
   return (
     <div className="flex items-center justify-center w-screen h-screen font-medium">
