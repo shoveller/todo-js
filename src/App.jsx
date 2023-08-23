@@ -47,7 +47,6 @@ const useListStore = create((set) => {
 
 function App() {
   const { list, add, complete, remove } = useListStore();
-  console.log(list);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
