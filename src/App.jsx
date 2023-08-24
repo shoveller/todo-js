@@ -1,52 +1,33 @@
 import "./App.css";
 import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
 
-const useListStore = create((set) => {
+const useListStore = create(immer((set) => {
   return {
     list: [],
     add: (todo) => {
       set((state) => {
-        return {
-          ...state,
-          list: [...state.list, todo],
-        };
+        state.list.push(todo);
       });
     },
     complete: (id, completed) => {
       set((state) => {
-        const newList = state.list.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              completed: !completed,
-            };
-          }
-          return item;
-        });
-
-        return {
-          ...state,
-          list: newList,
-        };
+        const index = state.list.findIndex(item => item.id === id);
+        state.list[index].completed = completed;
       });
     },
     remove: (id) => {
       set((state) => {
-        const newList = state.list.filter((item) => {
-          return item.id !== id;
-        });
-
-        return {
-          ...state,
-          list: newList,
-        };
-      });
+        const index = state.list.findIndex(item => item.id === id);
+        state.list.splice(index);
+      })
     },
   };
-});
+}));
 
 function App() {
   const { list, add, complete, remove } = useListStore();
+  console.log(list)
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -94,7 +75,7 @@ function App() {
               <div className="group" key={id}>
                 <label className="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900">
                   <input
-                    onChange={() => onChange(id, completed)}
+                    onChange={() => onChange(id, !completed)}
                     name="hidden-check"
                     className="hidden peer"
                     type="checkbox"
