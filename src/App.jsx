@@ -1,33 +1,48 @@
+import { useEffect } from "react";
 import "./App.css";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { getTodoList, login } from "@/api";
 
-const useListStore = create(immer((set) => {
-  return {
-    list: [],
-    add: (todo) => {
-      set((state) => {
-        state.list.push(todo);
-      });
-    },
-    complete: (id, completed) => {
-      set((state) => {
-        const index = state.list.findIndex(item => item.id === id);
-        state.list[index].completed = completed;
-      });
-    },
-    remove: (id) => {
-      set((state) => {
-        const index = state.list.findIndex(item => item.id === id);
-        state.list.splice(index);
-      })
-    },
-  };
-}));
+const useListStore = create(
+  immer((set) => {
+    return {
+      list: [],
+      add: (todo) => {
+        set((state) => {
+          state.list.push(todo);
+        });
+      },
+      complete: (id, completed) => {
+        set((state) => {
+          const index = state.list.findIndex((item) => item.id === id);
+          state.list[index].completed = completed;
+        });
+      },
+      remove: (id) => {
+        set((state) => {
+          const index = state.list.findIndex((item) => item.id === id);
+          state.list.splice(index);
+        });
+      },
+    };
+  })
+);
 
 function App() {
   const { list, add, complete, remove } = useListStore();
-  console.log(list)
+  console.log(list);
+
+  useEffect(() => {
+    const fetch = async () => {
+      await login("cinos81@gmail.com", "Sjw2sjw21!");
+      const data = await getTodoList();
+      console.log(data);
+    };
+
+    fetch();
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
