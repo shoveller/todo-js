@@ -22,29 +22,30 @@ export const login = (email, pass) => pb.admins.authWithPassword(email, pass);
  */
 
 /**
- * todo 모두 가져오기
+ * todo 추가
+ * @param {string} todo
+ * @param {boolean} completed
  * @returns {Promise<Todo>}
  */
-export const getTodoList = () => {
+export const createTodo = (todo, completed) => {
+  return collection.create({ todo, completed });
+};
+
+/**
+ * todo 모두 가져오기
+ * @returns {Promise<Todo[]>}
+ */
+export const readTodoList = () => {
   return collection.getFullList({
     sort: "-created",
   });
 };
 
 /**
- * todo 추가
- * @param {string} todo
- * @param {boolean} completed
- * @returns
- */
-export const postTodo = (todo, completed) => {
-  return collection.create({ todo, completed });
-};
-
-/**
  * todo 업데이트
  * @param {string} id
  * @param {boolean} completed
+ * @returns {Todo}
  */
 export const updateTodo = (id, completed) => {
   return collection.update(id, { completed });
