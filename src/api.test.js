@@ -1,5 +1,11 @@
-import { login, getTodoList, postTodo, createTodo, readTodoList, updateTodo, deleteTodo } from "@/api";
-import { describe, test, expect, beforeAll } from "vitest";
+import {
+  login,
+  createTodo,
+  readTodoList,
+  updateTodo,
+  deleteTodo,
+} from "@/api";
+import { describe, test, expect } from "vitest";
 import { fetch } from "cross-fetch";
 
 globalThis.fetch = fetch;
@@ -7,7 +13,7 @@ globalThis.fetch = fetch;
 // describe 는 테스트를 묶을 때 사용하는 함수
 describe("api sdk는", () => {
   // describe 는 테스트를 적는 함수
-  test('로그인을 할 수 있다', async () => {
+  test("로그인을 할 수 있다", async () => {
     const result = await login("cinos81@gmail.com", "qwertyuiop");
     // expect 함수 안에는 테스트를 하고자 하는 객체를 넣는다
     // 실행 결과를 모를 땐 toMatchInlineSnapshot 이 최고다
@@ -20,14 +26,14 @@ describe("api sdk는", () => {
           "id": "chuwe8ct7usjdvg",
           "updated": "2023-08-25 04:19:13.398Z",
         },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQxNDk2NzUsImlkIjoiY2h1d2U4Y3Q3dXNqZHZnIiwidHlwZSI6ImFkbWluIn0.GMTAIhK1Anr_EM1MKRvwc9tSeNHKInQI5UDGk1UAdaw",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQxNzk5MTYsImlkIjoiY2h1d2U4Y3Q3dXNqZHZnIiwidHlwZSI6ImFkbWluIn0.BkqFw-Llo2uYX5vGQcbIalF369NjssJBzn8hc5tqqGk",
       }
-    `)
-  })
+    `);
+  });
 
-  test('추가를 할 수 있다.', async () => {
+  test("추가를 할 수 있다.", async () => {
     await login("cinos81@gmail.com", "qwertyuiop");
-    const reault = await createTodo('할일', false);
+    const reault = await createTodo("할일", false);
 
     expect(reault).toMatchInlineSnapshot(`
       Record {
@@ -41,12 +47,11 @@ describe("api sdk는", () => {
         "updated": "2023-08-25 05:26:22.528Z",
       }
     `);
-  })
-  
+  });
 
-  test('목록을 표시할 수 있다.', async() =>{
+  test("목록을 표시할 수 있다.", async () => {
     await login("cinos81@gmail.com", "qwertyuiop");
-    const result = await readTodoList()
+    const result = await readTodoList();
 
     expect(result).toMatchInlineSnapshot(`
       [
@@ -151,12 +156,12 @@ describe("api sdk는", () => {
           "updated": "2023-08-24 23:11:04.707Z",
         },
       ]
-    `)
-  })
+    `);
+  });
 
-  test('수정이 된다', async () => {
+  test("수정이 된다", async () => {
     await login("cinos81@gmail.com", "qwertyuiop");
-    const result = await updateTodo('5ls80hwf2enacnk', true);
+    const result = await updateTodo("5ls80hwf2enacnk", true);
 
     expect(result).toMatchInlineSnapshot(`
       Record {
@@ -169,13 +174,13 @@ describe("api sdk는", () => {
         "todo": "할일",
         "updated": "2023-08-25 05:41:36.114Z",
       }
-    `)
-  })
+    `);
+  });
 
-  test('삭제가 된다', async () => {
+  test("삭제가 된다", async () => {
     await login("cinos81@gmail.com", "qwertyuiop");
-    const result = await deleteTodo('5ls80hwf2enacnk')
+    const result = await deleteTodo("5ls80hwf2enacnk");
 
-    expect(result).toMatchInlineSnapshot('true')
-  })
-})
+    expect(result).toMatchInlineSnapshot("true");
+  });
+});

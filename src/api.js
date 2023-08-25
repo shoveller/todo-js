@@ -3,6 +3,8 @@ import PocketBase from "pocketbase";
 const pb = new PocketBase("https://yontainine.pockethost.io");
 const collection = pb.collection("todo");
 
+export const isLogin = () => !!pb.authStore.token;
+
 /**
  * 포켓베이스 로그인
  * @param {string} email
@@ -10,6 +12,8 @@ const collection = pb.collection("todo");
  * @returns
  */
 export const login = (email, pass) => pb.admins.authWithPassword(email, pass);
+
+export const logout = () => pb.authStore.logout();
 
 /**
  * Todo 타입
