@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { readTodoList } from "./api";
+import { createTodo, deleteTodo, readTodoList, updateTodo } from "./api";
 import { useEffect } from "react";
 
 const useListStore = create(
@@ -14,20 +14,18 @@ const useListStore = create(
         });
       },
       add: (todo) => {
-        set((state) => {
-          state.list.push(todo);
+        set(() => {
+          createTodo(todo.todo, todo.complete);
         });
       },
       complete: (id, completed) => {
-        set((state) => {
-          const index = state.list.findIndex((item) => item.id === id);
-          state.list[index].completed = completed;
+        set(() => {
+          updateTodo(id, completed);
         });
       },
       remove: (id) => {
-        set((state) => {
-          const index = state.list.findIndex((item) => item.id === id);
-          state.list.splice(index);
+        set(() => {
+          deleteTodo(id);
         });
       },
     };
@@ -46,20 +44,22 @@ const TodoForm = () => {
     const formData = new FormData(e.currentTarget);
     const todo = formData.get("todo");
     add({
-      id: new Date().getTime(),
       todo,
       completed: false,
     });
+    read();
 
     e.currentTarget.reset();
   };
 
   const onChange = (id, completed) => {
     complete(id, completed);
+    read();
   };
 
   const onClick = (id) => {
     remove(id);
+    read();
   };
 
   return (
